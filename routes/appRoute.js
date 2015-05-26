@@ -1,5 +1,5 @@
 var App = require('../models/App');
-var urlService = require('../utils/url');
+var urlService = require('../services/url');
 var logger = require('../config/logger');
 
 var appRoute = {

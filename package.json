@@ -9,6 +9,8 @@
   "author": "Yogesh Kumar",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.12.4",
     "express": "^4.12.4",
     "jwt-simple": "^0.3.0",
     "mongoose": "^4.0.3",
