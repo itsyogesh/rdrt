@@ -14,5 +14,10 @@
     "public/components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "angular": "~1.4.0",
+    "angular-ui-router": "~0.2.15",
+    "bootstrap": "~3.3.4"
+  }
 }

@@ -6,6 +6,7 @@ var stats: {
 
 	AppStats: new mongoose.Schema({
 		app_id: {type: String, required: true},
+		referer: {type: String, required: true},
 		user_agent: {type: mongoose.Schema.Types.Mixed, required: true},
 		time: {type: Date, default: Date.now}
 	}),

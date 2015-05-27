@@ -10,6 +10,7 @@ var appRoute = {
 
 		app.user_id = req.user.id;
 		app.name = req.body.name;
+		app.default = req.body.default;
 		app.app_id = req.body.app_id;
 		
 		app = urlService.setUrl(req.body, app);
@@ -34,9 +35,9 @@ var appRoute = {
 		});
 	},
 
-	//Url endpoint handler "GET /apps/:appId"
+	//Url endpoint handler "GET /apps/:appBase"
 	getApp : function(req, res){
-		App.findById(req.params.appId, function(err, app){
+		App.findOne({base: req.params.appBase}, function(err, app){
 			if(err){
 				return res.status(400).send(err);
 			}
@@ -45,15 +46,15 @@ var appRoute = {
 		});
 	},
 
-	//Url endpoint handler "PUT /apps/:appId"
+	//Url endpoint handler "PUT /apps/:appBase"
 	updateApp: function(req, res){
-		App.findById(req.params.appId, function(err, app){
+		App.findOne({base: req.params.appBase}, function(err, app){
 			if(err){
 				return res.status(400).send(err);
 			}
 
 			app.name = (req.body.name) ? req.body.name : app.name;
-			app.app_id = (req.body.app_id) ? req.body.app_id : app.app_id;
+			app.base = (req.body.base) ? req.body.base : app.base;
 
 			app = urlService.setUrl(req.body, app);
 
@@ -67,9 +68,9 @@ var appRoute = {
 		});
 	},
 
-	//Url endpoint handler "DELETE /apps/:appId"
+	//Url endpoint handler "DELETE /apps/:appBase"
 	deleteApp : function(req, res){
-		App.findByIdandRemove(req.params.appId, function(err){
+		App.findOneandRemove({base: req.params.appBase}, function(err){
 			if(err){
 				res.status(400).send(err);
 			}
@@ -80,5 +81,43 @@ var appRoute = {
 		})
 	},
 
+	//Url endpoint handler "/:appBase"
+	redirectApp: function(req, res){
+		App.findOne({base: req.params.appBase}, function(err, app){
+			var redirectUrl = url.redirectUrl(app, req.useragent);
+			if(redirectUrl){
+				url.redirectPage(redirectUrl, 'app', function(err, page){
+					if(err){
+						return res.status(400).send(err)
+					}
+
+					return res.send(page);
+				});
+			}
+			else {
+				return res.redirect(app.default);
+			}
+		});
+	},
+
+	//Url endpoint handler ":/appBase/notinstalled"
+	appNotInstalled: function(req, res){
+		App.findOne({base: req.params.appBase}, function(err, app){
+			var redirectUrl = url.redirectUrl(app, req.useragent);
+			if(redirectUrl){
+				url.redirectPage(redirectUrl, 'app', function(err, page){
+					if(err){
+						return res.status(400).send(err);
+					}
+
+					return res.status(200).send(page);
+				});
+			}
+
+			else{
+				return res.redirect(app.default);
+			}
+		});
+	}
 
 }

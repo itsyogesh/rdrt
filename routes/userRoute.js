@@ -8,6 +8,7 @@ var userRoute = {
 		var user = new User();
 		user.email = req.body.email;
 		user.password = req.body.password;
+		user.name = req.body.name;
 
 		if(req.files.logo){
 			user.logo = req.files.logo.path;
@@ -39,6 +40,7 @@ var userRoute = {
 	//Endpoint handler "PUT /user/details"
 	updateUser: function(req. res){
 		User.findById(req.user.id, function(err, user){
+			user.name = (req.body.name) ? req.body.name : user.name;
 			if(req.files.logo){
 				user.logo = req.files.logo.path;
 			}
