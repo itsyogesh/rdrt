@@ -1,4 +1,4 @@
-var App = require('../models/App');
+var App = require('../models/app');
 var urlService = require('../services/url');
 var logger = require('../config/logger');
 
@@ -120,4 +120,6 @@ var appRoute = {
 		});
 	}
 
-}
+};
+
+module.exports = appRoute;

@@ -1,7 +1,7 @@
 //Load required packages
 var mongoose = require('mongoose');
 
-var App = new Mongoose.Schema({
+var App = new mongoose.Schema({
 	user_id: {type: String, required: true},
 	name: {type: String, required: true},
 	default: {type: String, required: true},

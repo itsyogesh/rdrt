@@ -35,10 +35,10 @@ var userRoute = {
 
 			res.status(200).send(user.toJSON());
 		});
-	}
+	},
 
 	//Endpoint handler "PUT /user/details"
-	updateUser: function(req. res){
+	updateUser: function(req, res){
 		User.findById(req.user.id, function(err, user){
 			user.name = (req.body.name) ? req.body.name : user.name;
 			if(req.files.logo){

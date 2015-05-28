@@ -60,6 +60,18 @@ var url = {
 		}
 
 		return null;
+	},
+
+	subdomain: function(host){
+		var subdomain = host.split('.');
+		if(subdomain.length > 2){
+			subdomain = subdomain[0];
+			return subdomain;
+		}
+
+		else return null;
 
 	}
+
+	redirectPage: function()
 }

@@ -1,7 +1,5 @@
 var jwt = require('jwt-simple');
-var secret = require('../config/secret').jwt;
-
-var token = 
+var secret = "secret_message";
 
 var jwtService = {
 	/*
@@ -13,7 +11,7 @@ var jwtService = {
 	createToken: function(user, host){
 		var payload = {
 			iss: host,
-			sub: user.id;
+			sub: user.id
 		};
 
 		var token = jwt.encode(payload, secret);

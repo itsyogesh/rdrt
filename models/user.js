@@ -14,7 +14,7 @@ var User = mongoose.Schema({
 * @params callback: callback function that returns an ismatch from bcrypt
 */
 
-UserSchema.methods.comparePassword = function(password, callback){
+User.methods.comparePassword = function(password, callback){
 	bcrypt.compare(password, this.password, callback);
 }
 

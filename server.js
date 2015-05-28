@@ -2,9 +2,11 @@
 
 var app = require('express')();
 var mongoose = require('mongoose');
-var logger = require('morgan');
+var logger = require('winston');
 var bodyParser = require('body-parser');
 var passport = require('passport');
+
+var api = require('./routes/api');
 
 mongoose.connect('mongodb://localhost:27017/rdrt');
 console.info('Connected to mongodb');
@@ -33,7 +35,7 @@ app.use(function(req, res, next){
 });
 
 //Use routes
-app.use('/', api);
+app.use('/api', api.userRouter, api.appRouter, api.urlRouter);
 
 //Setting up ports
 var port = process.env.PORT || 3000;

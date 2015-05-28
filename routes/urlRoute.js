@@ -107,4 +107,6 @@ var urlRoute = {
 		});
 	}
 
-}
+};
+
+module.exports = urlRoute;
