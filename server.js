@@ -3,6 +3,7 @@
 var app = require('express')();
 var mongoose = require('mongoose');
 var logger = require('winston');
+var multer = require('multer');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 
@@ -21,8 +22,13 @@ passport.serializeUser(function(user, callback){
 //Using body-parser
 app.use(bodyParser.json());
 
-app.use(bodyParser.urlEncoded({
+app.use(bodyParser.urlencoded({
 	extended: true
+}));
+
+//Multer for files
+app.use(multer({
+	dest: './uploads'
 }));
 
 //CORS Functionality

@@ -3,7 +3,10 @@ var deviceUrls = ['web_url', 'android_url', 'ios_url', 'windows_url'],
 	preferences = ['ios', 'android', 'web', 'windows'],
 	iosAgent = ['isiPad', 'isiPod', 'isiPhone'],
 	androidAgent = 'isAndroid',
-	windowsAgent = 'isWindows';
+	windowsAgent = 'isWindows',
+	redirectPagesPath = '../templates/',
+	REDIRECT_URL_HOLDER = 'redirect_url_holder';
+
 
 var url = {
 	/*
@@ -71,7 +74,21 @@ var url = {
 
 		else return null;
 
-	}
+	},
 
-	redirectPage: function()
-}
+	redirectPage: function(redirectUrl, pageName, callback){
+		var redirectPage = redirectUrl + pageName + '.html';
+		fs.readFile(redirectPage, function(err, data){
+			if(err){
+				return callback(err);
+			}
+			var html = data.toString();
+			html.replace(REDIRECT_URL_HOLDER, redirectUrl);
+			return callback(null, html);
+
+		});
+		
+	}
+};
+
+module.exports = url;

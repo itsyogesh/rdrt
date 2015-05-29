@@ -86,7 +86,7 @@ var urlRoute = {
 		Url.findOne({base: req.params.urlBase}, function(err, url){
 			var redirectUrl = url.redirectUrl(url, req.useragent);
 			if(redirectUrl){
-				url.redirectPage(redirectUrl, 'url.html' function(err, page){
+				url.redirectPage(redirectUrl, 'url', function(err, page){
 					if(err){
 						return res.status(400).send(err)
 					}

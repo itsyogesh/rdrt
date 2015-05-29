@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Rdrt</title>
+	</head>
+	<body>
+		<p> Redirecting </p>
+		<script type="text/javascript">
+			var now = new Date().valueOf();
+			var redirect_url = 'redirect_url_holder';
+			var appNotInstalledUrl = '/notinstalled';
+			setTimeout(function () {
+				if(new Date().valueOf() - now > 100) return;
+				appUrl = redirectUrl.split('/');
+				appUrl.splice(appUrl.length - 1, 1);
+				appUrl = appUrl.join('/');
+				window.location.replace(appUrl + appNotInstalledUrl);
+			}, 50);
+			window.location.replace(redirect_url);
+		</script>
+	</body>
+</html>

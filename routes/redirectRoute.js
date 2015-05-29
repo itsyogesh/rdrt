@@ -52,7 +52,7 @@ var redirectRoute = {
 	notInstalled: function(req, res){
 		var appBase = urlService.subdomain(req.headers.host);
 
-		App.findOne({base:appBase}, function(err, app){
+		App.findOne({base: appBase}, function(err, app){
 			var redirectUrl = url.redirectUrl(app, req.useragent);
 			if(redirectUrl){
 				url.redirectPage(redirectUrl, 'app', function(err, page){

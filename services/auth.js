@@ -27,7 +27,7 @@ var localStrategy = new LocalStrategy(params, function(email, password, callback
 				return callback(null, false, {message: 'Invalid email/password'});
 			}
 
-			return callback(user);
+			return callback(null, user);
 		});
 
 	});

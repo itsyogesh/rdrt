@@ -38,7 +38,7 @@ User.pre('save', function(callback){
 
 	bcrypt.genSalt(10, function(err, salt){
 		if(err){
-			return next(err);
+			return callback(err);
 		}
 
 		bcrypt.hash(user.password, salt, null, function(err, hash){
@@ -47,7 +47,7 @@ User.pre('save', function(callback){
 			}
 
 			user.password = hash;
-			next();
+			return callback();
 		});
 	});
 });

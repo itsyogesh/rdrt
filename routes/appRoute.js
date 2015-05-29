@@ -11,7 +11,7 @@ var appRoute = {
 		app.user_id = req.user.id;
 		app.name = req.body.name;
 		app.default = req.body.default;
-		app.app_id = req.body.app_id;
+		app.base = req.body.base;
 		
 		app = urlService.setUrl(req.body, app);
 
