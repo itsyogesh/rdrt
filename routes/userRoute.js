@@ -10,8 +10,8 @@ var userRoute = {
 		user.password = req.body.password;
 		user.name = req.body.name;
 
-		if(req.files.logo){
-			user.logo = req.files.logo.path;
+		if(req.files.profile_image){
+			user.profile_image = req.files.profile_image.path;
 		}
 
 		user.save(function(err){

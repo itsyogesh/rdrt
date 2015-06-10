@@ -9,7 +9,7 @@ var passport = require('passport');
 
 var api = require('./routes/api');
 
-mongoose.connect('mongodb://localhost:27017/rdrt');
+mongoose.connect('104.131.90.215:20102/rdrt');
 console.info('Connected to mongodb');
 
 //Using passport

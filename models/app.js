@@ -6,6 +6,7 @@ var App = new mongoose.Schema({
 	name: {type: String, required: true},
 	default: {type: String, required: true},
 	base: {type: String, required: true, unique: true},
+	logo: {type: String},
 	web_url: {type: String},
 	android_url: {type: String},
 	ios_url: {type: String},

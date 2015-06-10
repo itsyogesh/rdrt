@@ -12,6 +12,9 @@ var appRoute = {
 		app.name = req.body.name;
 		app.default = req.body.default;
 		app.base = req.body.base;
+		if(req.files.logo){
+			app.logo = req.files.logo.path;
+		}
 		
 		app = urlService.setUrl(req.body, app);
 
