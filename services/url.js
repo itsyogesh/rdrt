@@ -1,12 +1,14 @@
 
 var deviceUrls = ['web_url', 'android_url', 'ios_url', 'windows_url'],
 	preferences = ['ios', 'android', 'web', 'windows'],
-	iosAgent = ['isiPad', 'isiPod', 'isiPhone'],
+	iosAgent = ['isiPhone', 'isiPad', 'isiPod'],
 	androidAgent = 'isAndroid',
 	windowsAgent = 'isWindows',
-	redirectPagesPath = '../templates/',
 	REDIRECT_URL_HOLDER = 'redirect_url_holder';
 
+var redirectPagesPath = require('../config/config').templatePath;
+
+var fs = require('fs');
 
 var url = {
 	/*
@@ -43,13 +45,10 @@ var url = {
 	*/
 	redirectUrl: function(urlObject, userAgent){
 		
-		iosAgent.forEach(function(agent){
-			if(userAgent[agent]){
-				if(urlObject.preferences.ios){
-					return urlObject.ios_url;
-				}
-			}
-		});
+		if((userAgent[iosAgent[0]] || userAgent[iosAgent[1]] || userAgent[iosAgent[3]]) && 
+			urlObject.preferences.ios){
+			return urlObject.ios_url;
+		}
 
 		if(userAgent[androidAgent] && urlObject.preferences.android){
 			return urlObject.android_url;
@@ -74,13 +73,15 @@ var url = {
 	},
 
 	redirectPage: function(redirectUrl, pageName, callback){
-		var redirectPage = redirectUrl + pageName + '.html';
+		var redirectPage = redirectPagesPath + pageName + '.html';
+
 		fs.readFile(redirectPage, function(err, data){
 			if(err){
 				return callback(err);
 			}
+
 			var html = data.toString();
-			html.replace(REDIRECT_URL_HOLDER, redirectUrl);
+			html = html.replace(REDIRECT_URL_HOLDER, redirectUrl);
 			return callback(null, html);
 
 		});

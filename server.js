@@ -10,9 +10,10 @@ var passport = require('passport');
 
 var api = require('./routes/api');
 var redirectApi = require('./routes/redirectApi');
+var dbEndpoint = require('./config/config').dbEndpoint;
 
-mongoose.connect('104.131.90.215:20102/rdrt');
-console.info('Connected to mongodb');
+mongoose.connect(dbEndpoint);
+console.info('Connected to mongodb ' + dbEndpoint);
 
 //Using passport
 app.use(passport.initialize());

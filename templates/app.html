@@ -7,7 +7,8 @@
 		<p> Redirecting </p>
 		<script type="text/javascript">
 			var now = new Date().valueOf();
-			if(new Date().valueOf() - now > 100) return;
+			console.log(now);
+			if(new Date().valueOf() - now > 100){};
 			var redirect_url = 'redirect_url_holder';
 			window.location.replace(redirect_url);
 		</script>
