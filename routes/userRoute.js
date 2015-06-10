@@ -16,7 +16,7 @@ var userRoute = {
 
 		user.save(function(err){
 			if(err){
-				res.send(err);
+				return res.send(err);
 			}
 
 			return res.status(200).json({

@@ -4,10 +4,12 @@ var app = require('express')();
 var mongoose = require('mongoose');
 var logger = require('winston');
 var multer = require('multer');
+var useragent = require('express-useragent');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 
 var api = require('./routes/api');
+var redirectApi = require('./routes/redirectApi');
 
 mongoose.connect('104.131.90.215:20102/rdrt');
 console.info('Connected to mongodb');
@@ -18,6 +20,9 @@ app.use(passport.initialize());
 passport.serializeUser(function(user, callback){
 	callback(null, user.id);
 });
+
+//Using useragent
+app.use(useragent.express());
 
 //Using body-parser
 app.use(bodyParser.json());
@@ -43,6 +48,8 @@ app.use(function(req, res, next){
 //Use routes
 app.use('/api', api.userRouter, api.appRouter, api.urlRouter);
 
+//Redirect routes
+app.use('/', redirectApi);
 
 //Setting up ports
 var port = process.env.PORT || 3000;

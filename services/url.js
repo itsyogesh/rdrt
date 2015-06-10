@@ -55,11 +55,7 @@ var url = {
 			return urlObject.android_url;
 		}
 
-		if(userAgent[windowsAgent] && urlObject.preferences.android){
-			return urlObject.windows_url;
-		}
-
-		if(urlObject.preferences.web){
+		if(userAgent[windowsAgent] && urlObject.preferences.windows){
 			return urlObject.windows_url;
 		}
 
