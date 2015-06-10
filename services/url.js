@@ -26,7 +26,8 @@ var url = {
 			urlObject.preferences = {};
 		}
 		preferences.forEach(function(pref){
-			if(request[pref] && urlObject[pref+'_url']){
+
+			if(request.preferences[pref] && urlObject[pref+'_url']){
 				urlObject.preferences[pref] = request.preferences[pref];
 			}
 		});
