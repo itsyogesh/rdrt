@@ -1,10 +1,11 @@
+ 
+var platforms = ['web', 'android', 'ios', 'windows'],
+	REDIRECT_URL_HOLDER = 'redirect_url_holder',
+	APP_NAME_HOLDER = 'app_name',
+	FALLBACK_URL_HOLDER = 'fallback_url_holder';
 
-var deviceUrls = ['web_url', 'android_url', 'ios_url', 'windows_url'],
-	preferences = ['ios', 'android', 'web', 'windows'],
-	iosAgent = ['isiPhone', 'isiPad', 'isiPod'],
-	androidAgent = 'isAndroid',
-	windowsAgent = 'isWindows',
-	REDIRECT_URL_HOLDER = 'redirect_url_holder';
+var generator = require('./generator');
+var constants = require('../config/constants');
 
 var redirectPagesPath = require('../config/config').templatePath;
 
@@ -16,64 +17,61 @@ var url = {
 	* @params urlObject: Object of the url or the app,
 	* @params request: Request header from the call 
 	*/
-	setUrl: function(request, urlObject){
+	setUrl: function(request, url){
 
-		deviceUrls.forEach(function(device){
-			if(request[device]){
-				urlObject[device] = request[device];
+		platforms.forEach(function(platform){
+			if(request[platform]){
+				url[platform] = request[platform];
 			}
 		});
 
-		if(!urlObject.preferences){
-			urlObject.preferences = {};
+		if(!url.preferences){
+			url.preferences = {};
 		}
-		preferences.forEach(function(pref){
+		platforms.forEach(function(platform){
 
-			if(request.preferences[pref] && urlObject[pref+'_url']){
-				urlObject.preferences[pref] = request.preferences[pref];
+			if(request.preferences[platform] && url[platform]){
+				var pref = "pref_"+ platform;
+				url.preferences[platform] = 
+				request.preferences[pref] ? request.preferences[pref] : true;
 			}
 		});
 
-		return urlObject;
+		return url;
 	},
 
 	/*
 	* Generates a redirect url based on the user agent and the app/url preferences
-	* If no url is present it sends null.
-	* @params urlObject: Object of the url or the app
+	* If no url is present it returns the app default.
+	* @params url: Object of the url or the app
+	* @params app: App object
 	* @params userAgent: UserAgent object
 	*/
-	redirectUrl: function(urlObject, userAgent){
+	redirectUrl: function(url, app, userAgent){
+		var agent = generator.userAgent(userAgent);
 		
-		if((userAgent[iosAgent[0]] || userAgent[iosAgent[1]] || userAgent[iosAgent[3]]) && 
-			urlObject.preferences.ios){
-			return urlObject.ios_url;
+		if(agent === constants.ios && app.ios && url.ios) {
+			return generator.ios(app.ios.scheme, url.ios);
 		}
 
-		if(userAgent[androidAgent] && urlObject.preferences.android){
-			return urlObject.android_url;
+		if(agent === constants.android && app.android && url.android){
+			return generator.android(app.android.scheme, url.android);
 		}
 
-		if(userAgent[windowsAgent] && urlObject.preferences.windows){
-			return urlObject.windows_url;
+		if(agent === constants.windows && app.windows && url.windows){
+			return generator.windows(app.windows.scheme, url.windows);
 		}
 
-		return null;
+		if(agent === constants.web && url.web){
+			return url.web;
+		}
+
+		return app.preferences.default;
 	},
 
-	subdomain: function(host){
-		var subdomain = host.split('.');
-		if(subdomain.length > 2){
-			subdomain = subdomain[0];
-			return subdomain;
-		}
-
-		else return null;
-
-	},
-
-	redirectPage: function(redirectUrl, pageName, callback){
-		var redirectPage = redirectPagesPath + pageName + '.html';
+	redirectPage: function(redirectUrl, app, isWeb, callback){
+		var redirectPage = redirectPagesPath + 'url.html';
+		var fallbackUrl = generator.fallback(app);
 
 		fs.readFile(redirectPage, function(err, data){
 			if(err){
@@ -81,12 +79,23 @@ var url = {
 			}
 
 			var html = data.toString();
+			if(app.logo){
+				//Todo							
+			}
+			html = replaceAll(html, APP_NAME_HOLDER, app.name);
 			html = html.replace(REDIRECT_URL_HOLDER, redirectUrl);
+			if(isWeb){
+				html = html.replace(FALLBACK_URL_HOLDER, fallbackUrl);
+			}
+
 			return callback(null, html);
 
 		});
-		
 	}
 };
+
+function replaceAll(string, find, replace) {
+  return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+}
 
 module.exports = url;

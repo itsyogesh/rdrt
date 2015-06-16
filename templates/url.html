@@ -1,22 +1,48 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Rdrt</title>
+		<title>app_name</title>
+		<style type="text/css">
+			html,body {margin:0; padding:0; height: 100%;}
+			h4 {
+				font-family: sans-serif;
+				color: #555;
+				text-align: center;
+			}
+
+			img {
+				display: block;
+				margin: auto;
+			}
+
+			div {
+			    width: 30%;
+			    height: 200px; 
+			    position: absolute; top:0; bottom: 0; left: 0; right: 0; margin: auto;
+			}
+
+		</style>
 	</head>
 	<body>
-		<p> Redirecting </p>
+		<div>
+			<!-- img -->
+			<h4>Taking you to app_name ...</h4>
+		</div>
+
 		<script type="text/javascript">
-			var now = new Date().valueOf();
-			var redirect_url = 'redirect_url_holder';
-			var appNotInstalledUrl = '/notinstalled';
-			setTimeout(function () {
-				if(new Date().valueOf() - now > 100) return;
-				appUrl = redirectUrl.split('/');
-				appUrl.splice(appUrl.length - 1, 1);
-				appUrl = appUrl.join('/');
-				window.location.replace(appUrl + appNotInstalledUrl);
-			}, 50);
-			window.location.replace(redirect_url);
+			(function(){
+				var fallbackUrl = "fallback_url_holder";
+				var redirectUrl = "redirect_url_holder";
+				
+				//Creating a fallback url with device parameters
+				fallbackUrl += "?url=" + window.location.href + "&height=" + window.screen.height + "&width=" + window.screen.width;
+
+				window.location.replace(redirectUrl);
+
+				if(fallbackUrl !== 'fallback_url_holder'){
+					window.setTimeout(function(){window.location.replace(fallbackUrl); }, 100);
+				}
+			})();
 		</script>
 	</body>
 </html>

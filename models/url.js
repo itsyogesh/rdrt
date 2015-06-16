@@ -5,11 +5,15 @@ var Url = mongoose.Schema({
 	user_id: {type: String, required: true},
 	app_id: {type: String, required: true},
 	base: {type: String, required: true},
-	web_url: {type: String},
-	android_url: {type: String},
-	ios_url: {type: String},
-	windows_url: {type: String},
-	preferences: {}
+	web: {type: String},
+	android: {type: String},
+	ios: {type: String},
+	windows: {type: String},
+	preferences: {
+		ios: {type: Boolean},
+		android: {type: Boolean},
+		windows: {type: Boolean},
+	}
 });
 
 Url.methods.verifyUrl = function(url, callback){

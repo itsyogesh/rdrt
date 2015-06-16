@@ -10,17 +10,44 @@ var appRoute = {
 
 		app.user_id = req.user.id;
 		app.name = req.body.name;
-		app.default = req.body.default;
+
+		app.preferences = {};
+		app.preferences.default_url = req.body.preferences.default_url;
+		
 		app.base = req.body.base;
+		
 		if(req.files.logo){
 			app.logo = req.files.logo.path;
 		}
 		
-		app = urlService.setUrl(req.body, app);
+		if(req.body.web){
+			app.web.url = req.body.web.url;
+		}
+		
+		if(req.body.android){
+			app.android.scheme = req.body.android.scheme;
+			app.android.package = req.body.android.package;
+			app.android.store_url = req.body.android.store_url;
+
+			app.preferences.android = req.body.preferences.android ? req.body.preferences.android : true; 
+		}
+
+		if(req.body.ios){
+			app.ios.scheme = req.body.ios.scheme;
+			app.ios.store_url = req.body.ios.store_url;
+
+			app.preferences.ios = req.body.preferences.ios ? req.body.preferences.ios : true; 
+		}
+
+		if(req.body.windows){
+			app.windows.scheme = req.body.windows.scheme;
+			app.windows.store_url = req.body.windows.store_url;
+			app.preferences.windows = req.body.preferences.windows ? req.body.preferences.windows : true; 
+		}
 
 		app.save(function(err){
 			if(err){
-				return res.status(400).send(err);
+				return res.status(401).send(err);
 			}
 
 			return res.status(200).json(app);
@@ -31,7 +58,7 @@ var appRoute = {
 	getApps : function(req, res){
 		App.find({user_id: req.user.id}, function(err, apps){
 			if(err){
-				return res.status(400).send(err);
+				return res.status(401).send(err);
 			}
 
 			return res.status(200).json(apps);
@@ -42,7 +69,7 @@ var appRoute = {
 	getApp : function(req, res){
 		App.findOne({base: req.params.appBase}, function(err, app){
 			if(err){
-				return res.status(400).send(err);
+				return res.status(401).send(err);
 			}
 
 			return res.status(200).json(app);
@@ -53,7 +80,7 @@ var appRoute = {
 	updateApp: function(req, res){
 		App.findOne({base: req.params.appBase}, function(err, app){
 			if(err){
-				return res.status(400).send(err);
+				return res.status(401).send(err);
 			}
 
 			app.name = (req.body.name) ? req.body.name : app.name;

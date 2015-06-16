@@ -28,21 +28,11 @@
 			<!-- img -->
 			<h4>Taking you to app_name ...</h4>
 		</div>
-
 		<script type="text/javascript">
 			(function(){
-				//fallback_url_holder
-				var fallbackUrl = "fallback_url_holder";
 				var redirectUrl = "redirect_url_holder";
-				
-				//Creating a fallback url with device parameters
-				fallbackUrl +=  "?url=" + window.location.href + "&height=" + window.screen.height + "&width=" + window.screen.width;
-				console.log(fallbackUrl);
 
 				window.location.replace(redirectUrl);
-				if(fallbackUrl !== 'fallback_url_holder'){
-					window.setTimeout(function(){window.location.replace(fallbackUrl); }, 100);
-				}
 			})();
 		</script>
 	</body>
