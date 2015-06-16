@@ -129,7 +129,7 @@ var generator = {
 	* @params app: app object
 	*/
 	fallback: function(app){
-		var url = app.base + '.' + tld + notInstalledUrl;
+		var url = "http://" + app.base + '.' + tld + notInstalledUrl;
 		console.log(url);
 		return url;
 	}

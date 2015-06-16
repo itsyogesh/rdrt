@@ -58,6 +58,7 @@ var app = {
 			html = replaceAll(html, APP_NAME_HOLDER, app.name);
 			html = html.replace(REDIRECT_URL_HOLDER, redirectUrl);
 			if(!isWeb){
+				console.log("adding fallbackUrl");
 				html = html.replace(FALLBACK_URL_HOLDER, fallbackUrl);
 			}
 
