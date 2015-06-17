@@ -60,8 +60,10 @@ var redirectRoute = {
 	notInstalled: function(req, res){
 		var appBase = generator.subdomain(req.headers.host);
 		App.findOne({base: appBase}, function(err, app){
+			var userAgent = generator.userAgent(req.useragent);
 			var redirectUrl = appService.redirectApp(app, false, req.useragent);
-			appService.noAppPage(redirectUrl, app, function(err, page){
+			
+			appService.noAppPage(redirectUrl, app, userAgent, function(err, page){
 				if(err){
 					return res.status(400).send(err);
 				}

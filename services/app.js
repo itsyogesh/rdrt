@@ -66,7 +66,7 @@ var app = {
 		});
 	},
 
-	noAppPage: function(redirectUrl, app, callback){
+	noAppPage: function(redirectUrl, app, userAgent, callback){
 		var redirectPage = redirectPagesPath + 'no-app.html';
 		
 		fs.readFile(redirectPage, function(err, data){
@@ -80,6 +80,11 @@ var app = {
 			}
 			html = replaceAll(html, APP_NAME_HOLDER, app.name);
 			html = html.replace(REDIRECT_URL_HOLDER, redirectUrl);
+
+			if(userAgent === constants.android){
+				var androidFallbackUrl = generator.androidFallback(app);
+				html.replace(FALLBACK_URL_HOLDER, androidFallbackUrl);
+			}
 
 			return callback(null, html);
 

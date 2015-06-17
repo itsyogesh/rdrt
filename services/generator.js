@@ -137,6 +137,14 @@ var generator = {
 	fallback: function(app){
 		var url = "http://" + app.base + '.' + tld + notInstalledUrl;
 		return url;
+	},
+
+	androidFallback: function(app){
+		if(app.web){
+			return app.web.url;
+		}
+
+		return app.android.store_url;
 	}
 };
 

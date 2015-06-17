@@ -84,7 +84,7 @@ var url = {
 			}
 			html = replaceAll(html, APP_NAME_HOLDER, app.name);
 			html = html.replace(REDIRECT_URL_HOLDER, redirectUrl);
-			if(isWeb){
+			if(!isWeb){
 				html = html.replace(FALLBACK_URL_HOLDER, fallbackUrl);
 			}
 
@@ -96,6 +96,10 @@ var url = {
 
 function replaceAll(string, find, replace) {
   return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+}
+
+function escapeRegExp(string) {
+    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
 }
 
 module.exports = url;
