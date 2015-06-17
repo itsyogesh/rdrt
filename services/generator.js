@@ -69,10 +69,10 @@ var generator = {
 		if(!appInstalled){
 			url = url + "package=" + app.package + ';';
 			if(app.web){
-				url = url + "S.browser_fallback_url=" + app.web.url; 
+				url = url + "S.browser_fallback_url=" + app.web.url + ";"; 
 			}
 			else {
-				url = url + "S.browser_fallback_url=" + app.android.store_url;
+				url = url + "S.browser_fallback_url=" + app.android.store_url + ";";
 			}
 			url += "end;"
 			return url;
