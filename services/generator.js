@@ -67,7 +67,7 @@ var generator = {
 	androidApp: function(app, appInstalled){
 		var url = "intent:/#intent;"; 
 		if(!appInstalled){
-			url = url + "package=" + app.package + ';';
+			url = url + "package=" + app.android.package + ';';
 			if(app.web){
 				url = url + "S.browser_fallback_url=" + app.web.url + ";"; 
 			}
