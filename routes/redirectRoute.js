@@ -33,14 +33,11 @@ var redirectRoute = {
 	//Endpoint handler for appBase.rdrt.me/:urlBase
 	urlRedirect: function(req, res){
 		var appBase = generator.subdomain(req.headers.host);
-
 		App.findOne({base: appBase}, function(err, app){
 			if(err){
 				res.status(400).send(err);
 			}
-			console.log(req.params.urlBase);
 			Url.findOne({base: req.params.urlBase, app_id: app.id}, function(err, url){
-				console.log(url);
 				if(err || !url){
 					return res.send(err);
 				}
@@ -59,19 +56,17 @@ var redirectRoute = {
 		});
 	},
 
-	//Endpoint handler GET appBase.rdrt.me/notInstalled
+	//Endpoint handler GET appBase.rdrt.me/notinstalled
 	notInstalled: function(req, res){
 		var appBase = generator.subdomain(req.headers.host);
-
 		App.findOne({base: appBase}, function(err, app){
 			var redirectUrl = appService.redirectApp(app, false, req.useragent);
-				appService.noAppPage(redirectUrl, app, function(err, page){
-					if(err){
-						return res.status(400).send(err);
-					}
-
-					return res.status(200).send(page);
-				});
+			appService.noAppPage(redirectUrl, app, function(err, page){
+				if(err){
+					return res.status(400).send(err);
+				}
+				return res.status(200).send(page);
+			});
 		});
 	}	
 };

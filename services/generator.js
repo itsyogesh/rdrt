@@ -68,6 +68,12 @@ var generator = {
 		var url = "intent:/#intent;"; 
 		if(!appInstalled){
 			url = url + "package=" + app.package + ';';
+			if(app.web){
+				url = url + "S.browser_fallback_url=" + app.web.url; 
+			}
+			else {
+				url = url + "S.browser_fallback_url=" + app.android.store_url;
+			}
 			url += "end;"
 			return url;
 		}
@@ -130,7 +136,6 @@ var generator = {
 	*/
 	fallback: function(app){
 		var url = "http://" + app.base + '.' + tld + notInstalledUrl;
-		console.log(url);
 		return url;
 	}
 };
