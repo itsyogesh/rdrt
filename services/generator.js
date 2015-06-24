@@ -21,7 +21,7 @@ var generator = {
 			url += host;
 		}
 
-		url = url + "#intent;"; 
+		url = url + "#Intent;"; 
 
 		if(scheme){
 			url = url + "scheme=" + scheme + ";";
