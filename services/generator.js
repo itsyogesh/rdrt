@@ -11,7 +11,7 @@ var	windowsAgent = 'isWindows';
 var generator = {
 	/*
 	* Generates a intent specific url based on android
-	* For eg: intent://product?url=catalog.xyz.com#intent;scheme=scheme;end;
+	* For eg: intent://product?url=catalog.xyz.com#Intent;scheme=scheme;end;
 	* @params host: url that has to shown/ path
 	* @params scheme: custom scheme for the app deep link
 	*/
@@ -65,7 +65,7 @@ var generator = {
 	},
 
 	androidApp: function(app, appInstalled){
-		var url = "intent:/#intent;"; 
+		var url = "intent:/#Intent;"; 
 		if(!appInstalled){
 			url = url + "package=" + app.android.package + ';';
 			if(app.web){
