@@ -27,7 +27,7 @@ var generator = {
 			url = url + "scheme=" + scheme + ";";
 		}
 
-		url += "end;"
+		url += "end"
 
 		return url;
 	},
@@ -74,12 +74,12 @@ var generator = {
 			else {
 				url = url + "S.browser_fallback_url=" + app.android.store_url + ";";
 			}
-			url += "end;"
+			url += "end"
 			return url;
 		}
 
 		url = url + "scheme=" + app.android.scheme + ";";
-		url += "end;"
+		url += "end"
 		return url;
 
 	},
