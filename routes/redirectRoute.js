@@ -33,6 +33,7 @@ var redirectRoute = {
 	//Endpoint handler for appBase.rdrt.me/:urlBase
 	urlRedirect: function(req, res){
 		var appBase = generator.subdomain(req.headers.host);
+		console.log("This is used currently "+ req.params.urlBase);
 		App.findOne({base: appBase}, function(err, app){
 			if(err){
 				res.status(400).send(err);
@@ -43,6 +44,7 @@ var redirectRoute = {
 				}
 
 				var redirectUrl = urlService.redirectUrl(url, app, req.useragent);
+				console.log(redirectUrl);
 				var isWeb = (generator.userAgent(req.useragent) === constants.web);
 
 				urlService.redirectPage(redirectUrl, app, isWeb, function(err, page){
