@@ -36,7 +36,7 @@ var generator = {
 	* For eg: paytmmp://product?url=catalog/xyz/com
 	*/
 	ios: function(scheme, host){
-		var url = scheme + "://";
+		var url = scheme + ":/";
 
 		if(host){
 			if(host[0] == '/'){
@@ -52,7 +52,7 @@ var generator = {
 	* For eg: paytmmp://product?url=catalog/xyz/com
 	*/
 	windows: function(scheme, host){
-		var url = scheme + "://";
+		var url = scheme + ":/";
 
 		if(host){
 			if(host[0] == '/'){
