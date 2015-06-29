@@ -30,12 +30,13 @@
 		</div>
 		<script type="text/javascript">
 			(function(){
-				var androidFallbackUrl = "fallback_url_holder";
+				var fallbackUrl = "fallback_url_holder";
 				var redirectUrl = "redirect_url_holder";
 
 				window.location.replace(redirectUrl);
-				if(androidFallbackUrl !== 'fallback_url_holder'){
-					window.setTimeout(function(){window.location.replace(androidFallbackUrl); }, 100);
+				
+				if(fallbackUrl.indexOf('fallback_url_holder') == -1){
+					window.setTimeout(function(){window.location.replace(fallbackUrl); }, 1);
 				}
 			})();
 		</script>
