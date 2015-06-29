@@ -40,7 +40,8 @@
 
 
 				window.location.replace(redirectUrl);
-				if(fallbackUrl === 'fallback_url_holder'){
+
+				if(fallbackUrl.indexOf('fallback_url_holder') == -1){
 					window.setTimeout(function(){window.location.replace(fallbackUrl); }, 1);
 				}
 			})();

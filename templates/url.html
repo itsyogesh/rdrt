@@ -37,14 +37,13 @@
 				//Creating a fallback url with device parameters
 				fallbackUrl += "?url=" + window.location.href + "&height=" + window.screen.height + "&width=" + window.screen.width;
 
-				console.log(fallbackUrl);
-				console.log(redirectUrl);
-
+				
 				window.location.replace(redirectUrl);
-
-				if(fallbackUrl === 'fallback_url_holder'){
+				
+				if(fallbackUrl.indexOf('fallback_url_holder') == -1){
 					window.setTimeout(function(){window.location.replace(fallbackUrl); }, 1);
 				}
+
 			})();
 		</script>
 	</body>
